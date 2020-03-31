@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>579</width>
+    <height>305</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(188, 188, 188);</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="titulo_principal">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>20</y>
+      <width>521</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Broadway</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt; text-decoration: underline; color:#ff55ff;&quot;&gt;MUSICA CAROLINE FERNAN&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="informativo_principal">
+    <property name="geometry">
+     <rect>
+      <x>60</x>
+      <y>150</y>
+      <width>461</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Broadway</family>
+     </font>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:14pt; color:#aa007f;&quot;&gt;Pulsa en el menú para utilizar la aplicación&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>579</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMusica">
+    <property name="title">
+     <string>Musica</string>
+    </property>
+    <addaction name="submenu_registrar_2"/>
+    <addaction name="submenu_listado_2"/>
+    <addaction name="submenu_inicio_2"/>
+   </widget>
+   <addaction name="menuMusica"/>
+  </widget>
+  <action name="actionRegistrar_musica">
+   <property name="text">
+    <string>Registrar musica</string>
+   </property>
+  </action>
+  <action name="actionListar_musica">
+   <property name="text">
+    <string>Listar musica</string>
+   </property>
+  </action>
+  <action name="actionRegistrar_musica_2">
+   <property name="text">
+    <string>Registrar musica</string>
+   </property>
+  </action>
+  <action name="actionListar_musica_2">
+   <property name="text">
+    <string>Listar musica</string>
+   </property>
+  </action>
+  <action name="actionInicio">
+   <property name="text">
+    <string>Inicio</string>
+   </property>
+  </action>
+  <action name="submenu_registrar">
+   <property name="text">
+    <string>Registrar Música</string>
+   </property>
+  </action>
+  <action name="submenu_listado">
+   <property name="text">
+    <string>Listado Música</string>
+   </property>
+  </action>
+  <action name="submenu_inicio">
+   <property name="text">
+    <string>Inicio</string>
+   </property>
+  </action>
+  <action name="submenu_registrar_2">
+   <property name="text">
+    <string>Registrar musica</string>
+   </property>
+  </action>
+  <action name="submenu_listado_2">
+   <property name="text">
+    <string>Listar musica</string>
+   </property>
+  </action>
+  <action name="submenu_inicio_2">
+   <property name="text">
+    <string>Inicio</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
