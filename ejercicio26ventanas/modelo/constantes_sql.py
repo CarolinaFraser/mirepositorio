@@ -1,0 +1,2 @@
+SQL_INSERCION_MUSICA = "INSERT INTO `tabla_musica` (`id`, `cancion`, `cantante`, `numero_pistas`, `precio`, `estilo`) VALUES (NULL, %s, %s, %s, %s, %s); "
+SQL_SELECT_MUSICA = "SELECT * FROM tabla_musica"
