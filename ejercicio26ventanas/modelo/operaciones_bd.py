@@ -13,10 +13,12 @@ def registro_musica(musica):
     sql = constantes_sql.SQL_INSERCION_MUSICA
     conexion = conectar()
     cursor = conexion.cursor()
-    valores_a_insertar = (musica.cancion, musica.cantante, musica.numero_pistas, musica.precio, musica.estilo)
+    valores_a_insertar = (musica.cancion, musica.cantante, musica.numero_pistas, musica.precio, musica.estilo, musica.version, musica.formato, musica.envio)
     cursor.execute(sql, valores_a_insertar)
     conexion.commit()
+    id_generado = cursor.lastrowid
     conexion.disconnect()
+    return id_generado
 
 def obtener_musica():
     sql = constantes_sql.SQL_SELECT_MUSICA

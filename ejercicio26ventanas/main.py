@@ -4,9 +4,11 @@ from ventanas import ventana_principal, ventana_registrar_musica, ventana_listad
 import sys
 from modelo.clases import Musica
 from modelo import operaciones_bd
-from PyQt5.Qt import QMessageBox, QTableWidgetItem, QPushButton
+from PyQt5.Qt import QMessageBox, QTableWidgetItem, QPushButton, QFileDialog,\
+    QPixmap, QLabel
 from _functools import partial
-
+import shutil
+from pathlib import Path
 
 lista_resultado = None
 
@@ -17,12 +19,41 @@ def registrar_musica():
     musica.numero_pistas = ui_registrar_musica.registrar_pistas.text()
     musica.precio = ui_registrar_musica.registrar_precio.text()
     musica.estilo = ui_registrar_musica.registrar_estilo.text()
-    operaciones_bd.registro_musica(musica)
+    
+    if ui_registrar_musica.check_digital.isChecked():
+        musica.version = True
+        
+    indice_seleccionado = ui_registrar_musica.combo_formato.currentIndex()
+    musica.formato = ui_registrar_musica.combo_formato.itemText(indice_seleccionado)
+    
+    if ui_registrar_musica.radio_email.isChecked():
+        musica.envio = "Email"
+    if ui_registrar_musica.radio_sms.isChecked():
+        musica.envio = "SMS"
+    if ui_registrar_musica.radio_whatsapp.isChecked():
+        musica.envio = "WhatsApp"
+        
+    id_generado = operaciones_bd.registro_musica(musica)
+    ruta_imagen_destino = "imagenes/" + str(id_generado) + ".jpg"
+    shutil.move("temporal/imagen.jpg", ruta_imagen_destino) #mover la imag de temporal a la imagenes
+    
     QMessageBox.about(MainWindow, "Info", "Registro Musica, OK")
+    
+def seleccionar_imagen():
+    archivo = QFileDialog.getOpenFileName(MainWindow)
+    print(archivo)
+    ruta_archivo = archivo[0]
+    shutil.copy(ruta_archivo, "temporal/imagen.jpg")
+    pixmap = QPixmap("temporal/imagen.jpg")
+    ui_registrar_musica.label_imagen.setPixmap(pixmap)
+    alto_label_imagen = ui_registrar_musica.label_imagen.height()
+    pixmap_redim = pixmap.scaledToHeight(alto_label_imagen)
+    ui_registrar_musica.label_imagen.setPixmap(pixmap_redim)
     
 def mostrar_registro_musica():
     ui_registrar_musica.setupUi(MainWindow)
     ui_registrar_musica.btn_guardar_registro.clicked.connect(registrar_musica)
+    ui_registrar_musica.boton_imagen.clicked.connect(seleccionar_imagen)
     
 def mostrar_listado_musica():
     ui_listar_musica.setupUi(MainWindow)
@@ -68,6 +99,17 @@ def mostrar_table_widget_musica():
         boton_editar = QPushButton("Editar")
         boton_editar.clicked.connect(partial(editar_musica,m[0]))
         ui_ventana_table_widget.tabla_musica.setCellWidget(fila,7,boton_editar)
+        
+        label_miniatura = QLabel()
+        ruta_imagen = "imagenes/" + str(m[0]) + ".jpg"
+        objeto_path = Path(ruta_imagen)
+        existe = objeto_path.is_file()
+        if existe ==True:
+            pixmap = QPixmap(ruta_imagen)
+            pixmap_redim = pixmap.scaledToHeight(40)
+            label_miniatura.setPixmap(pixmap_redim)
+            ui_ventana_table_widget.tabla_musica.setCellWidget(fila,8,label_miniatura)
+        
         fila += 1
         
 def borrar_musica(id):
