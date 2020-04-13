@@ -1,9 +1,10 @@
 class Musica():
     
-    def __init__(self):
-        self.cancion = ""
-        self.cantante = ""
-        self.num_pistas = 0
-        self.precio = 0.0
-        self.estilo = ""
+    def __init__(self, cancion = "", cantante = "", num_pistas = 0, precio = 0, estilo = "", id = 0):
+        self.cancion = cancion
+        self.cantante = cantante
+        self.num_pistas = num_pistas
+        self.precio = precio
+        self.estilo = estilo
+        self.id = id
         
