@@ -34,9 +34,11 @@ def registrar_musica():
         musica.envio = "WhatsApp"
         
     id_generado = operaciones_bd.registro_musica(musica)
-    ruta_imagen_destino = "imagenes/" + str(id_generado) + ".jpg"
-    shutil.move("temporal/imagen.jpg", ruta_imagen_destino) #mover la imag de temporal a la imagenes
     
+    
+    ruta_imagen_destino = "imagenes/" + str(id_generado) + ".jpg"
+    shutil.move("temporal/imagen.jpg", ruta_imagen_destino)
+
     QMessageBox.about(MainWindow, "Info", "Registro Musica, OK")
     
 def seleccionar_imagen():
@@ -60,7 +62,7 @@ def mostrar_listado_musica():
     lista_resultado = operaciones_bd.obtener_musica()
     texto =""
     for l in lista_resultado:
-        texto += "id: " + str(l[0]) + " Canción: " + str(l[1]) + " Cantante: " + str(l[2]) + " Nº Pistas: " +  str(l[3]) + " Precio: " + str(l[4]) + " Estilo: "+ str(l[5]) + "\n"
+        texto += "id: " + str(l[0]) + " Canción: " + str(l[1]) + " Cantante: " + str(l[2]) + " Nº Pistas: " +  str(l[3]) + " Precio: " + str(l[4]) + " Estilo: "+ str(l[5]) + " Formato: " + str(l[6])  + " Versión: " + str(l[7]) + " Envío: " + str(l[8]) + "\n"
     ui_listar_musica.label_2.setText(texto)
     
 
@@ -79,7 +81,10 @@ def mostrar_registro():
     texto += "Cantante: " + lista_resultado[indice_seleccionado][2] + "\n"
     texto += "Nº Pistas: " + str(lista_resultado[indice_seleccionado][3]) + "\n"
     texto += "Precio: " + str(lista_resultado[indice_seleccionado][4]) + "\n"
-    texto += "Estilo: " + lista_resultado[indice_seleccionado][5]
+    texto += "Estilo: " + lista_resultado[indice_seleccionado][5] + "\n"
+    texto += "Formato: " + str(lista_resultado[indice_seleccionado][6]) + "\n"
+    texto += "Versión: " + str(lista_resultado[indice_seleccionado][7]) + "\n"
+    texto += "Envío: " + str(lista_resultado[indice_seleccionado][8])
     QMessageBox.about(MainWindow,"Info",texto)
     
 def mostrar_table_widget_musica():
@@ -95,10 +100,10 @@ def mostrar_table_widget_musica():
             columna_indice +=1
         boton_borrar = QPushButton("Borrar")
         boton_borrar.clicked.connect(partial(borrar_musica,m[0]))
-        ui_ventana_table_widget.tabla_musica.setCellWidget(fila,6,boton_borrar)
+        ui_ventana_table_widget.tabla_musica.setCellWidget(fila,10,boton_borrar)
         boton_editar = QPushButton("Editar")
         boton_editar.clicked.connect(partial(editar_musica,m[0]))
-        ui_ventana_table_widget.tabla_musica.setCellWidget(fila,7,boton_editar)
+        ui_ventana_table_widget.tabla_musica.setCellWidget(fila,11,boton_editar)
         
         label_miniatura = QLabel()
         ruta_imagen = "imagenes/" + str(m[0]) + ".jpg"
@@ -108,7 +113,7 @@ def mostrar_table_widget_musica():
             pixmap = QPixmap(ruta_imagen)
             pixmap_redim = pixmap.scaledToHeight(40)
             label_miniatura.setPixmap(pixmap_redim)
-            ui_ventana_table_widget.tabla_musica.setCellWidget(fila,8,label_miniatura)
+            ui_ventana_table_widget.tabla_musica.setCellWidget(fila,9,label_miniatura)
         
         fila += 1
         
@@ -128,6 +133,11 @@ def editar_musica(id_a_editar):
     ui_ventana_editar_musica.registrar_pistas.setText(str(musica_a_editar.num_pistas))
     ui_ventana_editar_musica.registrar_precio.setText(str(musica_a_editar.precio))
     ui_ventana_editar_musica.registrar_estilo.setText(musica_a_editar.estilo)
+    ui_ventana_editar_musica.combo_formato.setCurrentText(musica_a_editar.formato)
+    ui_ventana_editar_musica.check_digital.setChecked(musica_a_editar.version)
+    ui_ventana_editar_musica.radio_email.setText(musica_a_editar.envio)
+    ui_ventana_editar_musica.radio_sms.setText(musica_a_editar.envio)
+    ui_ventana_editar_musica.radio_whatsapp.setText(musica_a_editar.envio)
     
     ui_ventana_editar_musica.boton_guardar_cambios.clicked.connect(partial(guardar_cambios_musica,musica_a_editar.id))
     
@@ -140,6 +150,11 @@ def guardar_cambios_musica(id_guardarCambios):
     musica_a_guardar_cambios.num_pistas = ui_ventana_editar_musica.registrar_pistas.text()
     musica_a_guardar_cambios.precio = ui_ventana_editar_musica.registrar_precio.text()
     musica_a_guardar_cambios.estilo = ui_ventana_editar_musica.registrar_estilo.text()
+    musica_a_guardar_cambios.formato = ui_ventana_editar_musica.combo_formato.itemText()
+    musica_a_guardar_cambios.version = ui_ventana_editar_musica.check_digital.isChecked()
+    musica_a_guardar_cambios.envio = ui_ventana_editar_musica.radio_email.isChecked()
+    musica_a_guardar_cambios.envio = ui_ventana_editar_musica.radio_sms.isChecked()
+    musica_a_guardar_cambios.envio = ui_ventana_editar_musica.radio_whatsapp.isChecked()
     operaciones_bd.guardar_cambios_musica(musica_a_guardar_cambios)
     mostrar_table_widget_musica()
     

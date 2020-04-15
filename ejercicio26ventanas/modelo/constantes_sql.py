@@ -1,5 +1,5 @@
-SQL_INSERCION_MUSICA = "INSERT INTO `tabla_musica` (`id`, `cancion`, `cantante`, `numero_pistas`, `precio`, `estilo`, `version`, `formato`, `envio` ) VALUES (NULL, %s, %s, %s, %s, %s,%s, %s, %s); "
-SQL_SELECT_MUSICA = "SELECT `id`, `cancion`, `cantante`, `numero_pistas`, `precio`, `estilo` FROM tabla_musica"
+SQL_INSERCION_MUSICA = "INSERT INTO `tabla_musica` (`id`, `cancion`, `cantante`, `numero_pistas`, `precio`, `estilo`, `formato`, `version`, `envio` ) VALUES (NULL, %s, %s, %s, %s, %s,%s, %s, %s); "
+SQL_SELECT_MUSICA = "SELECT `id`, `cancion`, `cantante`, `numero_pistas`, `precio`, `estilo`, `formato`, `version`, `envio` FROM tabla_musica"
 SQL_BORRAR_MUSICA = "DELETE FROM tabla_musica WHERE id = %s;"
 SQL_OBTENER_MUSICA_POR_ID = "SELECT * FROM tabla_musica WHERE id = %s;"
-SQL_GUARDAR_CAMBIOS_MUSICA = "UPDATE tabla_musica SET cancion = %s, cantante = %s, numero_pistas = %s, precio = %s, estilo = %s WHERE id = %s;"
+SQL_GUARDAR_CAMBIOS_MUSICA = "UPDATE tabla_musica SET cancion = %s, cantante = %s, numero_pistas = %s, precio = %s, estilo = %s, formato = %s, version = %s, envio = %s WHERE id = %s;"
