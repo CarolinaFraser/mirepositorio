@@ -53,7 +53,7 @@ def guardar_cambios_musica(musica):
     sql = constantes_sql.SQL_GUARDAR_CAMBIOS_MUSICA
     conexion = conectar()
     cursor = conexion.cursor()
-    val = (musica.cancion, musica.cantante, musica.num_pistas, musica.precio, musica.estilo, musica.id)
+    val = (musica.cancion, musica.cantante, musica.num_pistas, musica.precio, musica.estilo, musica.formato, musica.version, musica.envio, musica.id)
     cursor.execute(sql,val)
     conexion.commit()
     conexion.disconnect()

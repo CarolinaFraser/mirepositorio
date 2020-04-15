@@ -135,9 +135,6 @@ def editar_musica(id_a_editar):
     ui_ventana_editar_musica.registrar_estilo.setText(musica_a_editar.estilo)
     ui_ventana_editar_musica.combo_formato.setCurrentText(musica_a_editar.formato)
     ui_ventana_editar_musica.check_digital.setChecked(musica_a_editar.version)
-    ui_ventana_editar_musica.radio_email.setText(musica_a_editar.envio)
-    ui_ventana_editar_musica.radio_sms.setText(musica_a_editar.envio)
-    ui_ventana_editar_musica.radio_whatsapp.setText(musica_a_editar.envio)
     
     ui_ventana_editar_musica.boton_guardar_cambios.clicked.connect(partial(guardar_cambios_musica,musica_a_editar.id))
     
@@ -150,11 +147,19 @@ def guardar_cambios_musica(id_guardarCambios):
     musica_a_guardar_cambios.num_pistas = ui_ventana_editar_musica.registrar_pistas.text()
     musica_a_guardar_cambios.precio = ui_ventana_editar_musica.registrar_precio.text()
     musica_a_guardar_cambios.estilo = ui_ventana_editar_musica.registrar_estilo.text()
-    musica_a_guardar_cambios.formato = ui_ventana_editar_musica.combo_formato.itemText()
-    musica_a_guardar_cambios.version = ui_ventana_editar_musica.check_digital.isChecked()
-    musica_a_guardar_cambios.envio = ui_ventana_editar_musica.radio_email.isChecked()
-    musica_a_guardar_cambios.envio = ui_ventana_editar_musica.radio_sms.isChecked()
-    musica_a_guardar_cambios.envio = ui_ventana_editar_musica.radio_whatsapp.isChecked()
+    if ui_ventana_editar_musica.check_digital.isChecked():
+        musica_a_guardar_cambios.version = True
+        
+    indice_seleccionado = ui_ventana_editar_musica.combo_formato.currentIndex()
+    musica_a_guardar_cambios.formato = ui_ventana_editar_musica.combo_formato.itemText(indice_seleccionado)
+    
+    if ui_ventana_editar_musica.radio_email.isChecked():
+        musica_a_guardar_cambios.envio = "Email"
+    if ui_ventana_editar_musica.radio_sms.isChecked():
+        musica_a_guardar_cambios.envio = "SMS"
+    if ui_ventana_editar_musica.radio_whatsapp.isChecked():
+        musica_a_guardar_cambios.envio = "WhatsApp"
+        
     operaciones_bd.guardar_cambios_musica(musica_a_guardar_cambios)
     mostrar_table_widget_musica()
     
